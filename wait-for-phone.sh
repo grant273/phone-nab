@@ -1,6 +1,7 @@
 #!/bin/bash
 #This script waits for a phone connection and then accesses its data.
 #TODO make script detect phone and not just any USB device
+#TODO add handling for already unlocked phone, handling for unplugged phone before end of script
 
 usbcount=$(lsusb | wc -l) 
 newcount=$usbcount
