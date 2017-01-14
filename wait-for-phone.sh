@@ -24,3 +24,5 @@ done
 cd /run/user/$UID/gvfs/mtp*/Internal\ storage
 ls
 echo 'YOU JUST GOT HACKED M8!!!'
+
+
