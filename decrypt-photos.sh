@@ -15,9 +15,9 @@ do
 	
 	if [[ $f = *".lol" ]];
 		echo "encrypting $f ($currentfile/$filecount)..."
-		openssl aes-256-cbc -d -a -in secrets.txt.enc -out secrets.txt.new
-
-		currentfile=$((currentfile+1))
+		openssl aes-256-cbc -d -a -in $f -out ${$f/%????/} #output the file and remove the .lol extension
+		rm $f #TODO Consider leaving the filetype as JPG. This will make the file show up blank in the gallery and automate file removal, which is a nice feature
+		currentfile=$((currentfile+1)) 
 	fi
 
 done
