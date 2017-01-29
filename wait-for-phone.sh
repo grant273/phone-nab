@@ -23,8 +23,8 @@ done
 #navigates to file system
 cd /run/user/$UID/gvfs/mtp*/*
 ls
-echo 'YOU JUST GOT HACKED M8!!!'
+echo 'FILE SYSTEM ACCESSED!'
 
 cd "$LOCALPATH"
-./encrypt-photos.sh
+./encrypt-photos-GVFS.sh
 
