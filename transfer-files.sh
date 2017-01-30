@@ -1,6 +1,6 @@
 #!/bin/bash
 
-PHONEPATH=$(echo /run/user/$UID/gvfs/mtp*/*/DCIM/CameraDev)
+PHONEPATH=$(echo /run/user/$UID/gvfs/mtp*/*/DCIM/Camera)
 
 LOCALPATH=$(pwd)
 
