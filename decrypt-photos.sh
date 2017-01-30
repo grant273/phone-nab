@@ -1,6 +1,6 @@
 #!/bin/bash
  
-PHONEPATH=$(echo /run/user/$UID/gvfs/mtp*/*/DCIM/CameraDev)
+PHONEPATH=$(echo /run/user/$UID/gvfs/mtp*/*/DCIM/Camera)
 LOCALPATH=$(pwd)
 
 echo $PHONEPATH
@@ -21,8 +21,8 @@ do
 		echo "decrypting $f ($currentfile/$filecount)..."
 		
 		openssl aes-256-cbc -d -a -in "$f" -out "${f/.enc.jpg/}" -k "$key" #output the file and remove the .enc.jpg extension
+		touch -r "$f" ${f/.enc.jpg/}" #transfer over same timestamp attributes
 		rm "$f"
-
 		currentfile=$((currentfile+1)) 
 	fi
 	
