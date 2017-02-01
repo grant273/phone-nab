@@ -15,5 +15,8 @@ This is simple functionality to copy off DCIM files on a device upon plugin, whe
 Run transfer-files-on-plugin.sh for this. It will wait for phone to connect and then transfer photos locally.
 
 ***
+####Prerequisites
+Your Linux machine needs to have support for gvfs commands, which can be installed with pakage gvfs-common and/or gvfs-bin  
+***
 ####Note
 This project is strictly for educational purposes. It is illegal to use it otherwise.
