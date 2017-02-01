@@ -5,14 +5,14 @@ Project to implement and automate juice jacking: the stealing of phone data thro
 
 The first functionality is for a host computer to encrypt a phone's camera photos.
 
-The all-in-one script to accomplish this task is the wait-steal-encrypt.sh script. This will transfer off files and encrypt them the device upon Android phone plugin.
+The script to accomplish this task is the encrypt-on-plugin.sh script. This will transfer off files and encrypt them before returning them to the Android phone.
 
 
 #####Data Theft
 
 This is simple functionality to copy off DCIM files on a device upon plugin, where the hacker then can proceed to look for sensitive information.
 
-Run transfer-files.sh for this.
+Run transfer-files-on-plugin.sh for this. It will wait for phone to connect and then transfer photos locally.
 
 ***
 ####Note
