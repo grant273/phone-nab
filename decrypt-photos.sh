@@ -20,14 +20,13 @@ do
 	
 	if [[ "$f" = *".enc.jpg" ]]; then
 		echo "decrypting $f ($currentfile/$filecount)..."
-		gvfs-copy "$f" "$LOCALPATH/data/decrypt"
-		openssl aes-256-cbc -d -a -in "$LOCALPATH/data/decrypt/$f" -out "$LOCALPATH/data/decrypt/${f/.enc.jpg/}" -k "$key" 			#output the file and remove the .enc.jpg extension
-		gvfs-copy "$LOCALPATH/data/decrypt/${f/.enc.jpg/}" .		
-		touch -r "$f" "${f/.enc.jpg/}" #transfer over same timestamp attributes
-		#rm "$f"
-		rm "$LOCALPATH/data/decrypt/${f/.enc.jpg/}"
+		gvfs-move "$f" "$LOCALPATH/data/decrypt"
+		openssl aes-256-cbc -d -a -in "$LOCALPATH/data/decrypt/$f" -out "$LOCALPATH/data/decrypt/${f/.enc.jpg/}" -k "$key" #output the file and remove the .enc.jpg extension
+		touch -r "$LOCALPATH/data/decrypt/$f" "$LOCALPATH/data/decrypt/${f/.enc.jpg/}" #transfer over same timestamp attributes
+		
+		gvfs-move "$LOCALPATH/data/decrypt/${f/.enc.jpg/}" .
 		rm "$LOCALPATH/data/decrypt/$f"
-		rm "$f"
+		
 		currentfile=$((currentfile+1)) 
 	fi
 	
