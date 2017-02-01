@@ -1,6 +1,5 @@
 #!/bin/bash
 #This script waits for a phone connection and then accesses its data.
-#TODO make script detect phone and not just any USB device
 
 LOCALPATH=$(pwd)
 usbcount=$(lsusb | wc -l) 
@@ -26,5 +25,3 @@ ls
 echo 'FILE SYSTEM ACCESSED!'
 
 cd "$LOCALPATH"
-./encrypt-photos-GVFS.sh
-
