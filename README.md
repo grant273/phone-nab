@@ -16,7 +16,7 @@ Run transfer-files-on-plugin.sh for this. It will wait for phone to connect and 
 
 ***
 ####Prerequisites
-Your Linux machine needs to have support for gvfs commands, which can be installed with pakage gvfs-common and/or gvfs-bin  
+Your Linux machine needs to have support for gvfs commands, which can be installed with pakage gvfs-common and/or gvfs-bin. On my Raspberry Pi (Raspbian), I found I needed to install gvfs-bin but gvfs-common was already installed. Linux Mint (Ubuntu based) worked without any installation.
 ***
 ####Note
 This project is strictly for educational purposes. It is illegal to use it otherwise.
