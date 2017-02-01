@@ -1,5 +1,5 @@
 #!/bin/bash
- 
+ #This script undos the effects of the the encrypting script. 
 PHONEPATH=$(echo /run/user/$UID/gvfs/mtp*/*/DCIM/Camera)
 LOCALPATH=$(pwd)
 
@@ -14,14 +14,19 @@ echo ""
 cd "$PHONEPATH"
 currentfile=1
 filecount=$(ls -1 | grep -v "ransom" | grep -v ".lol" | wc -l)
+#move to local, decrypt, move back. delete local stuff
 for f in *
 do 
 	
 	if [[ "$f" = *".enc.jpg" ]]; then
 		echo "decrypting $f ($currentfile/$filecount)..."
-		
-		openssl aes-256-cbc -d -a -in "$f" -out "${f/.enc.jpg/}" -k "$key" #output the file and remove the .enc.jpg extension
-		touch -r "$f" ${f/.enc.jpg/}" #transfer over same timestamp attributes
+		gvfs-copy "$f" "$LOCALPATH/data/decrypt"
+		openssl aes-256-cbc -d -a -in "$LOCALPATH/data/decrypt/$f" -out "$LOCALPATH/data/decrypt/${f/.enc.jpg/}" -k "$key" 			#output the file and remove the .enc.jpg extension
+		gvfs-copy "$LOCALPATH/data/decrypt/${f/.enc.jpg/}" .		
+		touch -r "$f" "${f/.enc.jpg/}" #transfer over same timestamp attributes
+		#rm "$f"
+		rm "$LOCALPATH/data/decrypt/${f/.enc.jpg/}"
+		rm "$LOCALPATH/data/decrypt/$f"
 		rm "$f"
 		currentfile=$((currentfile+1)) 
 	fi
