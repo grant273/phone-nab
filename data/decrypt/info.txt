@@ -1,1 +1,1 @@
-This directory is used for local decryption
+This directory is temporarily used for local decryption
